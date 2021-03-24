@@ -27,7 +27,7 @@ table = PrettyTable()
 table.field_names=["Tittle","Year","Rating","Director","Plot","Cast (Top 5)","Genre"]
 
 ia = IMDb()
-movie_list = [Minari","Sound of Metal","Mank","Promising Young Woman","The Father","Judas and the Black Messiah","The Trial of the Chigago 7","Nomadland"]
+movie_list = ["Minari","Sound of Metal","Mank","Promising Young Woman","The Father","Judas and the Black Messiah","The Trial of the Chigago 7","Nomadland"]
 
 file = open("movies.txt","w")
 
@@ -38,18 +38,18 @@ for movie in movie_list:
     title = movie["title"]
     year = movie["year"]
     rating = movie["rating"]
-    #director = movie["director"][0]["name"]
     directors = movie["director"]
     list_directors = []
     for i in range(len(directors)):
         list_directors.append(directors[i]["name"])
+    list_directors = ", ".join(list_directors)
     plot = movie["plot"][0]
     list_cast = []
     for cast in movie["cast"][:5]:
         list_cast.append(cast["name"])
-    genre = movie["genre"]
+    list_cast = ", ".join(list_cast)
+    genre = ", ".join(movie["genre"])
 
-    #table.add_row([str(title),str(year),str(rating),str(director),str(plot),str(list_cast),str(genre)])
     table.add_row([title,year,rating,list_directors,plot,list_cast,genre])
 
 file.writelines(table.get_string())
